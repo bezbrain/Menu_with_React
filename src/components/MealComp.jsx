@@ -1,25 +1,21 @@
 import React, { useState } from "react";
 import { menu } from "../data";
-import FilterComp from "./FilterComp";
+import Btns from "./Btns";
+import { filterBtn } from "./Btns";
 
 function MealComp() {
-  const [show, setShow] = useState(false);
+  const [filteredMenu, setFilteredMenu] = useState(menu);
 
-  const All = () => {
-    console.log("This is All");
-  };
-  const Breakfast = () => {
-    console.log("This is Breakfast");
-    return <FilterComp filterOut={menu} />;
-  };
-  const Lunch = () => {
-    console.log("This is Lunch");
-  };
-  const Shakes = () => {
-    console.log("This is shakes");
-  };
-  const Dinner = () => {
-    console.log("This is Dinner");
+  const btnHandler = (e) => {
+    if (e.currentTarget.textContent === filterBtn[0]) {
+      setFilteredMenu(menu);
+      console.log("I am all");
+    } else {
+      const newMenu = menu.filter((each) => {
+        return each.category === e.currentTarget.textContent;
+      });
+      setFilteredMenu(newMenu);
+    }
   };
 
   return (
@@ -27,25 +23,11 @@ function MealComp() {
       <main>
         <h1>Our Menu</h1>
         <div className="filter-btn-con">
-          <button className="btn" onClick={All}>
-            All
-          </button>
-          <button className="btn" onClick={Breakfast}>
-            Breakfast
-          </button>
-          <button className="btn" onClick={Lunch}>
-            Lunch
-          </button>
-          <button className="btn" onClick={Shakes}>
-            Shakes
-          </button>
-          <button className="btn" onClick={Dinner}>
-            Dinner
-          </button>
+          <Btns filterClick={btnHandler} />
         </div>
         {/* Meals Section */}
         <section className="meal-section">
-          {menu.map((each) => {
+          {filteredMenu.map((each) => {
             const { id, title, category, price, img, desc } = each;
             return (
               <div className="map-con" key={id}>
