@@ -39,6 +39,11 @@ body {
   color: white;
 }
 
+.active {
+  background-color: #ad813c;
+  color: #fff;
+}
+
 .meal-section {
   /* border: 2px solid red; */
   display: flex;

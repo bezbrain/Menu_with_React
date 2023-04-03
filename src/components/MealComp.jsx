@@ -5,16 +5,18 @@ import { filterBtn } from "./Btns";
 
 function MealComp() {
   const [filteredMenu, setFilteredMenu] = useState(menu);
+  const [category, setCategory] = useState("All");
 
   const btnHandler = (e) => {
     if (e.currentTarget.textContent === filterBtn[0]) {
       setFilteredMenu(menu);
-      console.log("I am all");
+      setCategory("All");
     } else {
       const newMenu = menu.filter((each) => {
         return each.category === e.currentTarget.textContent;
       });
       setFilteredMenu(newMenu);
+      setCategory(e.currentTarget.textContent);
     }
   };
 
@@ -23,7 +25,7 @@ function MealComp() {
       <main>
         <h1>Our Menu</h1>
         <div className="filter-btn-con">
-          <Btns filterClick={btnHandler} />
+          <Btns filterClick={btnHandler} cat={category} />
         </div>
         {/* Meals Section */}
         <section className="meal-section">
